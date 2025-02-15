@@ -15,6 +15,10 @@ export class AlarmDto {
   })
   uuid: string;
 
+  @IsNumber()
+  @ApiProperty({ description: '알람 ID (숫자)' })
+  id: number;
+
   @IsBoolean()
   @ApiProperty({ description: '알람 활성화 여부' })
   isActivated: boolean;

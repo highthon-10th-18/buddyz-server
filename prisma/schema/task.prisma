@@ -1,5 +1,6 @@
 model Alarm {
   uuid        String @id @default(uuid())
+  id          Int    @unique @default(autoincrement())
   userUUID    String
   personaUUID String
 
