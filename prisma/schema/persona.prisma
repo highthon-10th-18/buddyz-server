@@ -1,0 +1,16 @@
+model Persona {
+  uuid        String  @id @default(uuid())
+  creatorUUID String?
+
+  name            String
+  description     String
+  characteristics String
+  profileImage    String
+
+  creator      User?     @relation(name: "CreatedPersonas", fields: [creatorUUID], references: [uuid], onDelete: SetNull)
+  chats        Chat[]
+  sentMessages Message[] @relation("PersonaSentMessages")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,49 @@
+model Chat {
+  uuid              String @id @default(uuid())
+  targetPersonaUUID String
+  userUUID          String
+
+  targetPersona Persona @relation(fields: [targetPersonaUUID], references: [uuid])
+  user          User    @relation(fields: [userUUID], references: [uuid])
+
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id          Int     @id @default(autoincrement())
+  uuid        String  @unique
+  chatUUID    String
+  userUUID    String?
+  personaUUID String?
+
+  content MessageContent?
+
+  chat    Chat     @relation(fields: [chatUUID], references: [uuid], onDelete: Cascade)
+  user    User?    @relation(name: "UserSentMessages", fields: [userUUID], references: [uuid], onDelete: SetNull)
+  persona Persona? @relation(name: "PersonaSentMessages", fields: [personaUUID], references: [uuid], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MessageContentType {
+  TEXT
+  ALARM
+  TASK
+}
+
+model MessageContent {
+  messageUUID String @id
+
+  type MessageContentType
+
+  content Json
+
+  message Message @relation(fields: [messageUUID], references: [uuid])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

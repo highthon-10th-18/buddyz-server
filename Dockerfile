@@ -13,7 +13,6 @@ RUN pnpm install --frozen-lockfile
 
 EXPOSE 3000
 
-RUN pnpm run prisma:generate
 RUN pnpm run build
 
 CMD ["pnpm", "start:prod"]
