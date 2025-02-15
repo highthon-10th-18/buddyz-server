@@ -1,5 +1,6 @@
 model Alarm {
   uuid        String @id @default(uuid())
+  userUUID    String
   personaUUID String
 
   hour        Int
@@ -7,6 +8,7 @@ model Alarm {
   repeatDays  Int[]
   isActivated Boolean @default(true)
 
+  user    User    @relation(fields: [userUUID], references: [uuid])
   persona Persona @relation(fields: [personaUUID], references: [uuid])
 
   createdAt DateTime @default(now())
@@ -17,12 +19,14 @@ model Alarm {
 
 model Todo {
   uuid        String @id @default(uuid())
+  userUUID    String
   personaUUID String
 
   name       String
   targetDate DateTime
   isDone     Boolean  @default(false)
 
+  user    User    @relation(fields: [userUUID], references: [uuid])
   persona Persona @relation(fields: [personaUUID], references: [uuid])
 
   createdAt DateTime @default(now())

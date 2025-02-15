@@ -13,7 +13,7 @@ import { JwtStrategy } from './strategy/jwt.strategy';
     PrismaModule,
     JwtModule.register({
       secret:      process.env.JWT_SECRET,
-      signOptions: { expiresIn: '2h' },
+      signOptions: { expiresIn: '1d' },
       global:      true,
     }),
     UserModule,

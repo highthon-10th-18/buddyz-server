@@ -8,6 +8,8 @@ model User {
   createdPersonas Persona[] @relation(name: "CreatedPersonas")
   chats           Chat[]
   sentMessages    Message[] @relation("UserSentMessages")
+  alarms          Alarm[]
+  todos           Todo[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { IsNumber, IsUUID } from 'class-validator';
 
 export class CreateAlarmDto {
@@ -15,6 +16,9 @@ export class CreateAlarmDto {
   minute: number;
 
   @IsNumber({}, { each: true })
-  @ApiProperty({ description: '알람 반복 요일' })
+  @Type(() => Number)
+  @ApiProperty({
+    description: '알람 반복 요일', type: [Number],
+  })
   repeatDays: Array<number>;
 }

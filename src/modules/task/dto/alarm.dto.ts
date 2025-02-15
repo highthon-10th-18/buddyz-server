@@ -26,7 +26,10 @@ export class AlarmDto {
   minute: number;
 
   @IsNumber({}, { each: true })
-  @ApiProperty({ description: '알람 반복 요일' })
+  @Type(() => Number)
+  @ApiProperty({
+    description: '알람 반복 요일', type: [Number],
+  })
   repeatDays: Array<number>;
 
   @IsObject()

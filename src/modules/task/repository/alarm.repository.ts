@@ -6,15 +6,16 @@ import { CreateAlarmDto } from '../dto/create-alarm.dto';
 export class AlarmRepository {
   constructor(private readonly prisma: PrismaService) {
   }
-  async findAll() {
-    return this.prisma.alarm.findMany();
+  async findAll(userUUID: string) {
+    return this.prisma.alarm.findMany({ where: { userUUID } });
   }
-  async createAlarm(payload: CreateAlarmDto) {
+  async createAlarm(userUUID: string, payload: CreateAlarmDto) {
     return this.prisma.alarm.create({ data: {
       hour:       payload.hour,
       minute:     payload.minute,
       repeatDays: { set: payload.repeatDays },
       persona:    { connect: { uuid: payload.personaUUID } },
+      user:       { connect: { uuid: userUUID } },
     } });
   }
 }

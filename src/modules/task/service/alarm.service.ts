@@ -6,6 +6,9 @@ import { AlarmRepository } from '../repository/alarm.repository';
 export class AlarmService {
   constructor(private readonly alarmRepository: AlarmRepository) {
   }
+  async getAlarmList(userUUID: string) {
+    return this.alarmRepository.findAll(userUUID);
+  }
   async createAlarm(payload: CreateAlarmDto) {
     return this.alarmRepository.createAlarm(payload);
   }
