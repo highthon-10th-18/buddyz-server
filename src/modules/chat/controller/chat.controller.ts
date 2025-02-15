@@ -2,13 +2,20 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '@/modules/auth/guard/jwt-auth.guard';
 import { AuthorizedRequest } from '@/types/response';
+import { ChatOverviewDto } from '../dto/chat-overview.dto';
 import { CreateChatDto } from '../dto/create-chat.dto';
 import { ChatService } from '../service/chat.service';
 
@@ -21,6 +28,9 @@ export class ChatController {
   }
   @Get()
   @ApiOperation({ summary: '채팅 목록 조회' })
+  @ApiResponse({
+    status: HttpStatus.CREATED, type: [ChatOverviewDto],
+  })
   async getChatList(@Req() req: AuthorizedRequest) {
     return this.chatService.getChatList(req.user.uuid);
   }
