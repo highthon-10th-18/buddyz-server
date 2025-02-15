@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { UserModule } from 'src/modules/user/user.module';
+import { ChatModule } from '@/modules/chat/chat.module';
 import { PersonaModule } from '@/modules/persona/persona.module';
 
 @Module({
@@ -8,6 +9,7 @@ import { PersonaModule } from '@/modules/persona/persona.module';
     AuthModule,
     UserModule,
     PersonaModule,
+    ChatModule,
   ],
   controllers: [],
   providers:   [],

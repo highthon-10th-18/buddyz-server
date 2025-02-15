@@ -1,8 +1,9 @@
 model Alarm {
   uuid String @id @default(uuid())
 
-  hour   Int
-  minute Int
+  hour       Int
+  minute     Int
+  repeatDays Int[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -11,8 +12,8 @@ model Alarm {
 model Todo {
   uuid String @id @default(uuid())
 
-  name     String
-  remindAt DateTime?
+  name       String
+  targetDate DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
