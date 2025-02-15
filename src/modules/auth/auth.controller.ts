@@ -14,7 +14,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthorizedRequest } from '@/types/response';
-import { UserDto } from '../user/dto/user.dto';
 import { AuthService } from './auth.service';
 import { JwtPayloadDto } from './dto/jwt-payload.dto';
 import { JwtResponseDto } from './dto/jwt-response.dto';
@@ -57,7 +56,7 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: '회원가입' })
   @ApiResponse({
-    status: HttpStatus.CREATED, type: UserDto,
+    status: HttpStatus.CREATED, type: JwtResponseDto,
   })
   async register(@Body() body: RegisterDto) {
     return this.authService.register(body);
