@@ -10,10 +10,11 @@ export class PersonaService {
     const personas = await this.personaRepository.findMany();
 
     return personas.map(p => ({
-      uuid:        p.uuid,
-      name:        p.name,
-      description: p.description,
-      createdAt:   p.createdAt,
+      uuid:         p.uuid,
+      name:         p.name,
+      profileImage: p.profileImage,
+      description:  p.description,
+      createdAt:    p.createdAt,
     }));
   }
   async getPersonaDetail(uuid: string) {

@@ -1,10 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDateString,
+  IsObject,
   IsString,
   IsUUID,
 } from 'class-validator';
+import { PersonaOverviewDto } from '@/modules/persona/dto/persona.dto';
 
 export class TodoDto {
   @IsUUID()
@@ -22,4 +25,9 @@ export class TodoDto {
   @IsBoolean()
   @ApiProperty({ description: '할 일 완료 여부' })
   isDone: boolean;
+
+  @IsObject()
+  @Type(() => PersonaOverviewDto)
+  @ApiProperty({ description: '페르소나' })
+  persona: PersonaOverviewDto;
 }

@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNumber, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsBoolean,
+  IsNumber,
+  IsObject,
+  IsUUID,
+} from 'class-validator';
+import { PersonaOverviewDto } from '@/modules/persona/dto/persona.dto';
 
 export class AlarmDto {
   @IsUUID()
@@ -21,4 +28,9 @@ export class AlarmDto {
   @IsNumber({}, { each: true })
   @ApiProperty({ description: '알람 반복 요일' })
   repeatDays: Array<number>;
+
+  @IsObject()
+  @Type(() => PersonaOverviewDto)
+  @ApiProperty({ description: '페르소나' })
+  persona: PersonaOverviewDto;
 }
