@@ -19,7 +19,7 @@ model Message {
   userUUID    String?
   personaUUID String?
 
-  content String
+  content   String
 
   chat    Chat     @relation(fields: [chatUUID], references: [uuid], onDelete: Cascade)
   user    User?    @relation(name: "UserSentMessages", fields: [userUUID], references: [uuid], onDelete: SetNull)
