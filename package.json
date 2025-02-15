@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "nest build",
+    "prebuild": "rimraf dist",
+    "build": "nest build -b swc --type-check",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "start:dev": "nest start -b swc --watch",
     "start:prod": "node dist/main",
     "lint": "eslint --fix .",
     "prisma:format": "prisma format",
@@ -27,6 +28,7 @@
     "passport-jwt": "^4.0.1",
     "prisma": "^6.3.1",
     "reflect-metadata": "^0.2.2",
+    "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",
     "swagger-themes": "^1.4.3"
   },
