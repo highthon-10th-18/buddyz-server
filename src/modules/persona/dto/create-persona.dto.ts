@@ -10,12 +10,8 @@ export class CreatePersonaDto {
   @ApiProperty({ description: '페르소나 설명' })
   description: string;
 
-  /**
-   * 페르소나 특징
-   *
-   * @example '페르소나 특징'
-   */
   @IsString()
+  @ApiProperty({ description: '페르소나 특징' })
   characteristics: string;
 
   @ApiProperty({
@@ -23,5 +19,5 @@ export class CreatePersonaDto {
     format:      'binary',
     description: '페르소나 이미지',
   })
-  profileImage: File;
+  profileImage: Express.Multer.File;
 }

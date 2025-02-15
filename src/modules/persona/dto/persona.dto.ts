@@ -44,3 +44,21 @@ export class PersonaDto {
   @ApiProperty({ description: '마지막 수정일' })
   updatedAt: string;
 }
+
+export class PersonaOverviewDto {
+  @IsUUID()
+  @ApiProperty({ description: '페르소나 UUID' })
+  uuid: string;
+
+  @IsString()
+  @ApiProperty({ description: '이름' })
+  name: string;
+
+  @IsString()
+  @ApiProperty({ description: '설명' })
+  description: string;
+
+  @IsDateString()
+  @ApiProperty({ description: '생성일' })
+  createdAt: string;
+}

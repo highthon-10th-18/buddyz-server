@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreatePersonaDto } from './dto/create-persona.dto';
 import { PersonaRepository } from './repository/persona.repository';
 
 @Injectable()
@@ -17,5 +18,8 @@ export class PersonaService {
   }
   async getPersonaDetail(uuid: string) {
     return this.personaRepository.findPersonaByUUID(uuid);
+  }
+  async createPersona(creatorUUID: string, payload: CreatePersonaDto) {
+    return this.personaRepository.createPersona(creatorUUID, payload);
   }
 }
