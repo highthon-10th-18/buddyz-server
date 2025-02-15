@@ -7,12 +7,22 @@ export class AlarmRepository {
   constructor(private readonly prisma: PrismaService) {
   }
   async findOne(userUUID: string, alarmUUID: string) {
-    return this.prisma.alarm.findFirst({ where: {
+    const alarm = await this.prisma.alarm.findFirst({ where: {
       uuid: alarmUUID, userUUID,
     } });
+
+    if (!alarm) return null;
+
+    return {
+      ...alarm, repeatDays: sortDaysStartingFromMonday(alarm.repeatDays),
+    };
   }
   async findAll(userUUID: string) {
-    return this.prisma.alarm.findMany({ where: { userUUID } });
+    const alarms = await this.prisma.alarm.findMany({ where: { userUUID } });
+
+    return alarms.map(alarm => ({
+      ...alarm, repeatDays: sortDaysStartingFromMonday(alarm.repeatDays),
+    }));
   }
   async createAlarm(userUUID: string, payload: CreateAlarmDto) {
     return this.prisma.alarm.create({ data: {
@@ -37,4 +47,15 @@ export class AlarmRepository {
   async deleteAlarm(alarmUUID: string) {
     return this.prisma.alarm.delete({ where: { uuid: alarmUUID } });
   }
+}
+
+function sortDaysStartingFromMonday(days: Array<number>) {
+  return days
+    .sort((a, b) => {
+      if (a === 0) return 1;
+
+      if (b === 0) return -1;
+
+      return a - b;
+    });
 }
