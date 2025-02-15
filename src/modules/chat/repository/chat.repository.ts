@@ -10,4 +10,15 @@ export class ChatRepository {
       where: { userUUID }, orderBy: { updatedAt: 'desc' },
     });
   }
+  async getChat(userUUID: string, personaUUID: string) {
+    return this.prisma.chat.findFirst({ where: {
+      userUUID, targetPersonaUUID: personaUUID,
+    } });
+  }
+  async createChat(userUUID: string, personaUUID: string) {
+    return this.prisma.chat.create({ data: {
+      user:          { connect: { uuid: userUUID } },
+      targetPersona: { connect: { uuid: personaUUID } },
+    } });
+  }
 }
