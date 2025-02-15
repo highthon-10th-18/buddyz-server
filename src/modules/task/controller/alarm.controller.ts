@@ -15,6 +15,7 @@ import { JwtAuthGuard } from '@/modules/auth/guard/jwt-auth.guard';
 import { AuthorizedRequest } from '@/types/response';
 import { AlarmDto } from '../dto/alarm.dto';
 import { CreateAlarmDto } from '../dto/create-alarm.dto';
+import { UpdateAlarmDto } from '../dto/update-alarm.dto';
 import { AlarmService } from '../service/alarm.service';
 
 @Controller('alarms')
@@ -44,7 +45,7 @@ export class AlarmController {
   @ApiResponse({
     status: HttpStatus.OK, type: AlarmDto,
   })
-  async updateAlarm(@Req() req: AuthorizedRequest, @Body() payload: CreateAlarmDto, @Param('alarmUUID') alarmUUID: string) {
+  async updateAlarm(@Req() req: AuthorizedRequest, @Body() payload: UpdateAlarmDto, @Param('alarmUUID') alarmUUID: string) {
     return this.alarmService.updateAlarm(req.user.uuid, alarmUUID, payload);
   }
   @Delete(':alarmUUID')

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/common/modules/prisma/prisma.service';
 import { CreateAlarmDto } from '../dto/create-alarm.dto';
+import { UpdateAlarmDto } from '../dto/update-alarm.dto';
 
 @Injectable()
 export class AlarmRepository {
@@ -33,14 +34,15 @@ export class AlarmRepository {
       user:       { connect: { uuid: userUUID } },
     } });
   }
-  async updateAlarm(alarmUUID: string, payload: CreateAlarmDto) {
+  async updateAlarm(alarmUUID: string, payload: UpdateAlarmDto) {
     return this.prisma.alarm.update({
       where: { uuid: alarmUUID },
       data:  {
-        hour:       payload.hour,
-        minute:     payload.minute,
-        repeatDays: { set: payload.repeatDays },
-        persona:    { connect: { uuid: payload.personaUUID } },
+        hour:        payload.hour,
+        minute:      payload.minute,
+        repeatDays:  { set: payload.repeatDays },
+        isActivated: payload.isActivated,
+        persona:     { connect: { uuid: payload.personaUUID } },
       },
     });
   }

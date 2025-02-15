@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateAlarmDto } from '../dto/create-alarm.dto';
+import { UpdateAlarmDto } from '../dto/update-alarm.dto';
 import { AlarmRepository } from '../repository/alarm.repository';
 
 @Injectable()
@@ -12,7 +13,7 @@ export class AlarmService {
   async createAlarm(userUUID: string, payload: CreateAlarmDto) {
     return this.alarmRepository.createAlarm(userUUID, payload);
   }
-  async updateAlarm(userUUID: string, alarmUUID: string, payload: CreateAlarmDto) {
+  async updateAlarm(userUUID: string, alarmUUID: string, payload: UpdateAlarmDto) {
     const targetAlarm = await this.alarmRepository.findOne(userUUID, alarmUUID);
 
     if (!targetAlarm) {
