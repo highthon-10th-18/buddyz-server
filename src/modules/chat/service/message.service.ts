@@ -65,7 +65,7 @@ export class MessageService {
       messages: [
         {
           role:    'system',
-          content: `Your name is ${persona.name}. ${persona.description} ${persona.characteristics}`,
+          content: `Your name is ${persona.name}.\n${persona.description}\n${persona.characteristics}\nYOU MUST SAY KOREAN.`,
         },
         ...messagesHistory,
         {
