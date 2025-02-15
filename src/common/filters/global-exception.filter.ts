@@ -30,14 +30,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     if (exception instanceof BadRequestException) {
       const exceptionResponse = exception.getResponse() as {
-        message: Array<string>;
+        message: Array<string> | string;
       };
 
-      if (exceptionResponse.message) {
-        apiResponse.message = exceptionResponse.message.join(', ');
-      } else {
-        apiResponse.message = message;
-      }
+      const messages = typeof exceptionResponse.message === 'string' ? [exceptionResponse.message] : exceptionResponse.message;
+
+      apiResponse.message = messages.join(', ');
     } else {
       apiResponse.message = message;
     }
