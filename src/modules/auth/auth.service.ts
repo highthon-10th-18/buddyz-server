@@ -72,6 +72,24 @@ export class AuthService {
     };
   }
   async register(payload: RegisterDto) {
-    return this.authRepository.register(payload);
+    const newUser = await this.authRepository.register(payload);
+    const jwtPayload = new JwtPayloadDto;
+
+    jwtPayload.uuid = newUser.uuid;
+
+    jwtPayload.email = newUser.email;
+
+    jwtPayload.name = newUser.name;
+
+    const accessToken = this.jwtService.sign({ ...jwtPayload });
+
+    const refreshToken = this.jwtService.sign({ ...jwtPayload }, {
+      secret:    this.configService.get<string>('JWT_REFRESH_SECRET') || '',
+      expiresIn: '7d',
+    });
+
+    return {
+      accessToken, refreshToken,
+    };
   }
 }
