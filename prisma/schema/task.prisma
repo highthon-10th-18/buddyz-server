@@ -1,20 +1,32 @@
 model Alarm {
-  uuid String @id @default(uuid())
+  uuid        String @id @default(uuid())
+  personaUUID String
 
-  hour       Int
-  minute     Int
-  repeatDays Int[]
+  hour        Int
+  minute      Int
+  repeatDays  Int[]
+  isActivated Boolean @default(true)
+
+  persona Persona @relation(fields: [personaUUID], references: [uuid])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([hour, minute])
 }
 
 model Todo {
-  uuid String @id @default(uuid())
+  uuid        String @id @default(uuid())
+  personaUUID String
 
   name       String
   targetDate DateTime
+  isDone     Boolean  @default(false)
+
+  persona Persona @relation(fields: [personaUUID], references: [uuid])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([personaUUID, name])
 }
