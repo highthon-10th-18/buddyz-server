@@ -5,7 +5,9 @@ import { PrismaService } from 'src/common/modules/prisma/prisma.service';
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {
   }
-  async findUserByEmail(email: string) {
-    return this.prisma.user.findUnique({ where: { email } });
+  async findUserByEmail(email: string, includePassword = false) {
+    return this.prisma.user.findUnique({
+      where: { email }, omit: { password: !includePassword },
+    });
   }
 }

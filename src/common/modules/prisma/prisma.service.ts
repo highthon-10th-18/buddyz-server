@@ -5,6 +5,9 @@ import { PrismaClient } from '@prisma/client';
 @Injectable()
 export class PrismaService extends PrismaClient {
   constructor(private readonly configService: ConfigService) {
-    super({ datasources: { db: { url: configService.get<string>('DATABASE_URL') } } });
+    super({
+      omit:        { user: { password: true } },
+      datasources: { db: { url: configService.get<string>('DATABASE_URL') } },
+    });
   }
 }

@@ -6,8 +6,8 @@ import { UserRepository } from './repository/user.repository';
 export class UserService {
   constructor(private readonly prisma: PrismaService, private readonly userRepository: UserRepository) {
   }
-  async findUserByEmail(email: string) {
-    const result = await this.userRepository.findUserByEmail(email);
+  async findUserByEmail(email: string, includePassword = false) {
+    const result = await this.userRepository.findUserByEmail(email, includePassword);
 
     if (!result) {
       throw new HttpException('해당 이메일로 가입된 사용자가 없습니다.', 404);

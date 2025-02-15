@@ -23,7 +23,7 @@ export class AuthService {
     }
   }
   async login(payload: LoginDto) {
-    const targetUser = await this.userService.findUserByEmail(payload.email);
+    const targetUser = await this.userService.findUserByEmail(payload.email, true);
     const isPasswordMatch = await compare(payload.password, targetUser.password);
 
     if (!isPasswordMatch) {
