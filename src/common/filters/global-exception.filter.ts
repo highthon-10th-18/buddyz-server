@@ -33,7 +33,11 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         message: Array<string>;
       };
 
-      apiResponse.message = exceptionResponse.message.join(', ');
+      if (exceptionResponse.message) {
+        apiResponse.message = exceptionResponse.message.join(', ');
+      } else {
+        apiResponse.message = message;
+      }
     } else {
       apiResponse.message = message;
     }
