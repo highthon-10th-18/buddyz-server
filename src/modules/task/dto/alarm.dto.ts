@@ -10,7 +10,9 @@ import { PersonaOverviewDto } from '@/modules/persona/dto/persona.dto';
 
 export class AlarmDto {
   @IsUUID()
-  @ApiProperty({ description: '알람 UUID' })
+  @ApiProperty({
+    description: '알람 UUID', example: '00000000-0000-0000-0000-000000000000',
+  })
   uuid: string;
 
   @IsBoolean()

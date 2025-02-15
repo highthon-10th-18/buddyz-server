@@ -11,7 +11,9 @@ import { PersonaOverviewDto } from '@/modules/persona/dto/persona.dto';
 
 export class TodoDto {
   @IsUUID()
-  @ApiProperty({ description: '할 일 UUID' })
+  @ApiProperty({
+    description: '할 일 UUID', example: '00000000-0000-0000-0000-000000000000',
+  })
   uuid: string;
 
   @IsString()

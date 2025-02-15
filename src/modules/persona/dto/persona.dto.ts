@@ -8,7 +8,9 @@ import {
 
 export class PersonaDto {
   @IsUUID()
-  @ApiProperty({ description: '페르소나 UUID' })
+  @ApiProperty({
+    description: '페르소나 UUID', example: '00000000-0000-0000-0000-000000000000',
+  })
   uuid: string;
 
   @IsUUID()
@@ -16,7 +18,7 @@ export class PersonaDto {
   @ApiProperty({
     description: '생성자 UUID',
     nullable:    true,
-    example:     'f7b3b3b0-4b7b-4b7b-4b7b-4b7b4b7b4b7b',
+    example:     '00000000-0000-0000-0000-000000000000',
   })
   creatorUUID: string | null;
 
@@ -47,7 +49,9 @@ export class PersonaDto {
 
 export class PersonaOverviewDto {
   @IsUUID()
-  @ApiProperty({ description: '페르소나 UUID' })
+  @ApiProperty({
+    description: '페르소나 UUID', example: '00000000-0000-0000-0000-000000000000',
+  })
   uuid: string;
 
   @IsString()

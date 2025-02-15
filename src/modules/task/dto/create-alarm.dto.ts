@@ -4,7 +4,9 @@ import { IsNumber, IsUUID } from 'class-validator';
 
 export class CreateAlarmDto {
   @IsUUID()
-  @ApiProperty({ description: '생성할 페르소나 UUID' })
+  @ApiProperty({
+    description: '생성할 페르소나 UUID', example: '00000000-0000-0000-0000-000000000000',
+  })
   personaUUID: string;
 
   @IsNumber()
