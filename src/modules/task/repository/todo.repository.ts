@@ -19,7 +19,6 @@ export class TodoRepository {
     return this.prisma.todo.create({ data: {
       name:       payload.name,
       targetDate: payload.targetDate,
-      persona:    { connect: { uuid: payload.personaUUID } },
       user:       { connect: { uuid: userUUID } },
     } });
   }
@@ -30,7 +29,6 @@ export class TodoRepository {
         name:       payload.name,
         targetDate: payload.targetDate,
         isDone:     payload.isDone,
-        persona:    { connect: { uuid: payload.personaUUID } },
       },
     });
   }
