@@ -15,4 +15,7 @@ export class UserService {
 
     return result;
   }
+  async findUserByUUID(uuid: string) {
+    return this.userRepository.findUserByUUID(uuid);
+  }
 }

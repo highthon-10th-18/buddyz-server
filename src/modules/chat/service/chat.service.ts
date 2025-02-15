@@ -8,6 +8,18 @@ export class ChatService {
   async getChatList(userUUID: string) {
     return this.chatRepository.getChatList(userUUID);
   }
+  async getChatDetail(chatUUID: string) {
+    return this.chatRepository.getChatDetail(chatUUID);
+  }
+  async getPersonaInChat(chatUUID: string) {
+    const chat = await this.chatRepository.getChatDetail(chatUUID);
+
+    if (!chat) {
+      throw new HttpException('채팅을 찾을 수 없습니다.', 404);
+    }
+
+    return chat.targetPersona;
+  }
   async startChat(userUUID: string, personaUUID: string) {
     const exists = await this.chatRepository.getChat(userUUID, personaUUID);
 

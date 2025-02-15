@@ -14,35 +14,16 @@ model Chat {
 
 model Message {
   id          Int     @id @default(autoincrement())
-  uuid        String  @unique
+  uuid        String  @unique @default(uuid())
   chatUUID    String
   userUUID    String?
   personaUUID String?
 
-  content MessageContent?
+  content String
 
   chat    Chat     @relation(fields: [chatUUID], references: [uuid], onDelete: Cascade)
   user    User?    @relation(name: "UserSentMessages", fields: [userUUID], references: [uuid], onDelete: SetNull)
   persona Persona? @relation(name: "PersonaSentMessages", fields: [personaUUID], references: [uuid], onDelete: SetNull)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum MessageContentType {
-  TEXT
-  ALARM
-  TASK
-}
-
-model MessageContent {
-  messageUUID String @id
-
-  type MessageContentType
-
-  content Json
-
-  message Message @relation(fields: [messageUUID], references: [uuid])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

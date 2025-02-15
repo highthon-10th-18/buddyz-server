@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { MessageContentType } from '@prisma/client';
 import { PrismaService } from '@/common/modules/prisma/prisma.service';
 
 @Injectable()
@@ -13,7 +12,6 @@ export class ChatRepository {
       include: {
         targetPersona: true,
         messages:      {
-          include: { content: true },
           orderBy: { createdAt: 'desc' },
           take:    1,
         },
@@ -31,11 +29,9 @@ export class ChatRepository {
       }
 
       return {
-        uuid:        c.uuid,
-        personaName: c.targetPersona.name,
-        lastMessage: c.messages[0].content?.type === MessageContentType.TEXT
-          ? JSON.parse(c.messages[0].content.content?.toString() || '{"text":""}').text
-          : '미리보기 불가',
+        uuid:         c.uuid,
+        personaName:  c.targetPersona.name,
+        lastMessage:  c.messages[0].content,
         profileImage: c.targetPersona.profileImage,
       };
     });
@@ -44,6 +40,14 @@ export class ChatRepository {
     return this.prisma.chat.findFirst({ where: {
       userUUID, targetPersonaUUID: personaUUID,
     } });
+  }
+  async getChatDetail(chatUUID: string) {
+    return this.prisma.chat.findUnique({
+      where:   { uuid: chatUUID },
+      include: {
+        user: true, targetPersona: true,
+      },
+    });
   }
   async createChat(userUUID: string, personaUUID: string) {
     return this.prisma.chat.create({ data: {

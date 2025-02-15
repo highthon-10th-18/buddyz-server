@@ -10,4 +10,7 @@ export class UserRepository {
       where: { email }, omit: { password: !includePassword },
     });
   }
+  async findUserByUUID(uuid: string) {
+    return this.prisma.user.findUnique({ where: { uuid } });
+  }
 }

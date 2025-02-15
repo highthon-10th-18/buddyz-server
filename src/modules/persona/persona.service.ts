@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { PersonaRepository } from './repository/persona.repository';
 
@@ -18,7 +18,13 @@ export class PersonaService {
     }));
   }
   async getPersonaDetail(uuid: string) {
-    return this.personaRepository.findPersonaByUUID(uuid);
+    const persona = await this.personaRepository.findPersonaByUUID(uuid);
+
+    if (!persona) {
+      throw new HttpException('페르소나를 찾을 수 없습니다.', 404);
+    }
+
+    return persona;
   }
   async createPersona(creatorUUID: string, payload: CreatePersonaDto) {
     return this.personaRepository.createPersona(creatorUUID, payload);

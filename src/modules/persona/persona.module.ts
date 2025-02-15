@@ -9,6 +9,7 @@ import { PersonaRepository } from './repository/persona.repository';
   imports:     [PrismaModule, StorageModule],
   controllers: [PersonaController],
   providers:   [PersonaService, PersonaRepository],
+  exports:     [PersonaService],
 })
 export class PersonaModule {
 }
