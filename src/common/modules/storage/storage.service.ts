@@ -36,7 +36,7 @@ export class StorageService {
 
     await this.minioClient.putObject(this.bucketName, randomFileName, fileStream, file.size);
 
-    return randomFileName;
+    return await this.getFileUrl(randomFileName);
   }
   async getFileUrl(fileName: string): Promise<string> {
     return await this.minioClient.presignedUrl('GET', this.bucketName, fileName, 24 * 60 * 60);
