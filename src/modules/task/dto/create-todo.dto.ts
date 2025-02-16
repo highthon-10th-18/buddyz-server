@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsString } from 'class-validator';
+import { IsDateString, IsOptional, IsString } from 'class-validator';
 
 export class CreateTodoDto {
   @IsString()
@@ -7,6 +7,9 @@ export class CreateTodoDto {
   name: string;
 
   @IsDateString()
-  @ApiProperty({ description: '할 일 날짜' })
-  targetDate: string;
+  @IsOptional()
+  @ApiProperty({
+    description: '할 일 날짜', nullable: true,
+  })
+  targetDate?: string | null;
 }

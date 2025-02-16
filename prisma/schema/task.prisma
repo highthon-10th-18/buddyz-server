@@ -23,8 +23,8 @@ model Todo {
   userUUID String
 
   name       String
-  targetDate DateTime
-  isDone     Boolean  @default(false)
+  targetDate DateTime?
+  isDone     Boolean   @default(false)
 
   user User @relation(fields: [userUUID], references: [uuid])
 
