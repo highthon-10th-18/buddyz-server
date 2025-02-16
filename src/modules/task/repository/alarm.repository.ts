@@ -19,7 +19,9 @@ export class AlarmRepository {
     };
   }
   async findAll(userUUID: string) {
-    const alarms = await this.prisma.alarm.findMany({ where: { userUUID } });
+    const alarms = await this.prisma.alarm.findMany({
+      where: { userUUID }, include: { persona: true },
+    });
 
     return alarms.map(alarm => ({
       ...alarm, repeatDays: sortDaysStartingFromMonday(alarm.repeatDays),
