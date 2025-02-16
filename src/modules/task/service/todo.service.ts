@@ -8,7 +8,14 @@ export class TodoService {
   constructor(private readonly todoRepository: TodoRepository) {
   }
   async getTodoList(userUUID: string) {
-    return this.todoRepository.findAll(userUUID);
+    const todos = await this.todoRepository.findAll(userUUID);
+
+    return todos.map(todo => ({
+      ...todo,
+      targetDate: todo.targetDate
+        ? `${todo.targetDate.getFullYear()}년 ${(todo.targetDate.getMonth() || 0) + 1}월 ${todo.targetDate.getDate()}일`
+        : '그외',
+    }));
   }
   async createTodo(userUUID: string, payload: CreateTodoDto) {
     return this.todoRepository.createTodo(userUUID, payload);

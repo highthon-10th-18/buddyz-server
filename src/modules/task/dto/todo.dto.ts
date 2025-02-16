@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsDateString,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsBoolean, IsString, IsUUID } from 'class-validator';
 
 export class TodoDto {
   @IsUUID()
@@ -18,14 +12,13 @@ export class TodoDto {
   @ApiProperty({ description: '할 일 이름' })
   name: string;
 
-  @IsDateString()
-  @IsOptional()
+  @IsString()
   @ApiProperty({
     description: '할 일 날짜',
     nullable:    true,
-    example:     '2021-01-01T00:00:00.000Z',
+    example:     '2025년 1월 1일',
   })
-  targetDate: string | null;
+  targetDate: string;
 
   @IsBoolean()
   @ApiProperty({ description: '할 일 완료 여부' })
